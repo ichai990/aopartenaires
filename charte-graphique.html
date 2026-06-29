@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Charte graphique — AO Partenaires</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0E2A47;
+    --slate:#5E7488;
+    --green:#15A37A;
+    --green-dark:#0F7D5E;
+    --bg:#F7F9FB;
+    --ink:#1B2733;
+    --line:#E3E9EF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--bg);line-height:1.6}
+  h1,h2,h3,.font-title{font-family:'Sora',sans-serif;color:var(--navy);letter-spacing:-.01em}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 28px}
+  .num{color:var(--green);font-weight:700;margin-right:10px}
+  /* Cover */
+  .cover{background:var(--navy);color:#fff;padding:90px 0 80px}
+  .cover .wrap{display:flex;align-items:center;gap:48px;flex-wrap:wrap}
+  .cover h1{color:#fff;font-size:clamp(2rem,5vw,3.2rem);font-weight:800}
+  .cover p{color:#9fb3c8;margin-top:10px;font-size:1.05rem}
+  .cover .mark{width:200px;flex:0 0 auto}
+  /* Sections */
+  section{padding:64px 0;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);display:block;margin-bottom:8px}
+  h2{font-size:1.7rem;font-weight:700;margin-bottom:6px}
+  .sub{color:var(--slate);margin-bottom:34px;max-width:680px}
+  .panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:40px;display:grid;place-items:center;min-height:200px}
+  .panel.dark{background:var(--navy)}
+  .grid{display:grid;gap:20px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .cap{font-size:.82rem;color:var(--slate);margin-top:10px;text-align:center}
+  /* Colors */
+  .swatch{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff}
+  .swatch .chip{height:120px}
+  .swatch .meta{padding:16px 18px}
+  .swatch .meta b{font-family:'Sora';display:block;color:var(--navy);font-size:1rem}
+  .swatch .meta span{display:block;font-size:.82rem;color:var(--slate);margin-top:4px;font-variant-numeric:tabular-nums}
+  /* Type */
+  .typeblock{background:#fff;border:1px solid var(--line);border-radius:14px;padding:30px}
+  .typeblock .label{font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;color:var(--green);font-weight:700}
+  .specimen{font-family:'Sora';color:var(--navy);font-weight:800;font-size:3rem;line-height:1.05;margin:14px 0 6px}
+  .glyphs{color:var(--slate);font-size:1rem}
+  .specimen-body{font-family:'Inter';font-size:1.05rem;color:var(--ink);margin-top:10px}
+  .weights{display:flex;gap:20px;flex-wrap:wrap;margin-top:14px;color:var(--navy)}
+  .weights span{font-family:'Sora'}
+  /* Do/Dont */
+  .rule{border-radius:14px;padding:24px;background:#fff;border:1px solid var(--line)}
+  .rule .tag{font-family:'Sora';font-weight:700;font-size:.9rem;display:inline-flex;align-items:center;gap:8px;margin-bottom:10px}
+  .ok .tag{color:var(--green-dark)}
+  .no .tag{color:#c0392b}
+  .rule ul{margin:0;padding-left:18px;color:#3a4a5a}
+  .rule li{margin-bottom:6px;font-size:.95rem}
+  .clearspace{position:relative}
+  .tone{background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px}
+  .tone h3{font-size:1.05rem;margin-bottom:6px}
+  .tone p{color:#3a4a5a;font-size:.95rem}
+  .pill{display:inline-block;background:rgba(21,163,122,.1);color:var(--green-dark);font-weight:600;font-size:.85rem;padding:6px 12px;border-radius:999px;margin:4px 6px 0 0;font-family:'Sora'}
+  footer{padding:40px 0;text-align:center;color:var(--slate);font-size:.85rem}
+  @media(max-width:760px){.g2,.g3{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<header class="cover">
+  <div class="wrap">
+    <div class="mark">
+      <svg viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="172" cy="80" r="54" fill="none" stroke="#fff" stroke-width="18"/>
+        <path d="M32 142 L82 18 132 142" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M50 98 H114" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+        <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <h1>Charte graphique</h1>
+      <p>AO Partenaires — Marchés publics du bâtiment · Île-de-France</p>
+      <p style="margin-top:4px;font-size:.85rem;color:#6f859b">Version 1.0 — Juin 2026</p>
+    </div>
+  </div>
+</header>
+
+<!-- 1. LOGO PRINCIPAL -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">01</span>Logo principal</span>
+    <h2>Le logo et sa signature</h2>
+    <p class="sub">Le logo associe le monogramme « AO » au nom complet et à la signature de métier. C'est la version à privilégier dès que la place le permet.</p>
+    <div class="grid g2">
+      <div class="panel">
+        <div style="text-align:center">
+          <svg width="150" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto">
+            <circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/>
+            <path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/>
+            <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+          <div class="font-title" style="font-weight:800;font-size:1.8rem;letter-spacing:.12em;color:var(--navy);margin-top:16px">AO&nbsp;PARTENAIRES</div>
+          <div style="font-family:'Sora';font-weight:500;letter-spacing:.22em;font-size:.72rem;color:var(--slate);margin-top:6px">MARCHÉS PUBLICS DU BÂTIMENT</div>
+        </div>
+        <div class="cap">Version verticale — fond clair</div>
+      </div>
+      <div class="panel dark">
+        <div style="text-align:center">
+          <svg width="150" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg" style="display:block;margin:0 auto">
+            <circle cx="172" cy="80" r="54" fill="none" stroke="#fff" stroke-width="18"/>
+            <path d="M32 142 L82 18 132 142" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 98 H114" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+            <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+          <div class="font-title" style="font-weight:800;font-size:1.8rem;letter-spacing:.12em;color:#fff;margin-top:16px">AO&nbsp;PARTENAIRES</div>
+          <div style="font-family:'Sora';font-weight:500;letter-spacing:.22em;font-size:.72rem;color:#9fb3c8;margin-top:6px">MARCHÉS PUBLICS DU BÂTIMENT</div>
+        </div>
+        <div class="cap" style="color:#9fb3c8">Version verticale — fond foncé</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. LE SYMBOLE -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">02</span>Le symbole</span>
+    <h2>Un monogramme qui relie</h2>
+    <p class="sub">Le « A » et le « O » se rejoignent ; le maillon vert qui les unit symbolise la mise en relation entre l'entreprise et le marché public. Le vert porte aussi l'idée d'énergie (CVC) et de feu vert au succès.</p>
+    <div class="grid g3">
+      <div>
+        <div class="panel">
+          <svg width="120" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/>
+            <path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/>
+            <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cap">Symbole couleur</div>
+      </div>
+      <div>
+        <div class="panel">
+          <svg width="120" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/>
+            <path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/>
+            <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cap">Monochrome (navy)</div>
+      </div>
+      <div>
+        <div class="panel" style="background:var(--navy)">
+          <div style="width:96px;height:96px;border-radius:22px;background:var(--navy);display:grid;place-items:center;box-shadow:0 0 0 1px rgba(255,255,255,.12)">
+            <svg width="58" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="172" cy="80" r="54" fill="none" stroke="#fff" stroke-width="18"/>
+              <path d="M32 142 L82 18 132 142" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M50 98 H114" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/>
+              <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+            </svg>
+          </div>
+        </div>
+        <div class="cap">Icône / favicon</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. ZONE DE PROTECTION -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">03</span>Zone de protection & taille minimale</span>
+    <h2>Donnez-lui de l'air</h2>
+    <p class="sub">Réservez autour du logo une marge libre au moins égale à la hauteur du « O » du symbole. Ne placez aucun texte ni élément graphique à l'intérieur de cette zone.</p>
+    <div class="grid g2">
+      <div class="panel" style="position:relative">
+        <div style="padding:42px;border:1px dashed #c3d0db;border-radius:10px">
+          <svg width="120" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/>
+            <path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/>
+            <path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="cap">Zone de protection (marge minimale)</div>
+      </div>
+      <div class="panel">
+        <div style="display:flex;align-items:flex-end;gap:30px">
+          <div style="text-align:center"><svg width="40" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg"><circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/><path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/><path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/></svg><div class="cap">24 px — favicon</div></div>
+          <div style="text-align:center"><svg width="90" viewBox="0 0 250 156" xmlns="http://www.w3.org/2000/svg"><circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/><path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/><path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/></svg><div class="cap">≥ 32 px — web</div></div>
+        </div>
+        <div class="cap">Taille minimale du symbole : 24 px de haut.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. INTERDITS -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">04</span>Usages interdits</span>
+    <h2>Ce qu'il ne faut jamais faire</h2>
+    <div class="grid g2">
+      <div class="rule ok">
+        <span class="tag">✓ À faire</span>
+        <ul>
+          <li>Utiliser les couleurs officielles ou les versions monochromes fournies.</li>
+          <li>Respecter les proportions d'origine (pas de déformation).</li>
+          <li>Poser le logo sur un fond suffisamment contrasté.</li>
+          <li>Conserver la zone de protection.</li>
+        </ul>
+      </div>
+      <div class="rule no">
+        <span class="tag">✕ À éviter</span>
+        <ul>
+          <li>Étirer, incliner ou déformer le logo.</li>
+          <li>Recolorer le maillon ou changer la palette.</li>
+          <li>Ajouter ombre portée, contour ou effet 3D.</li>
+          <li>Poser le logo sur un fond chargé ou peu contrasté.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. COULEURS -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">05</span>Couleurs</span>
+    <h2>Palette de marque</h2>
+    <p class="sub">Le bleu nuit porte la crédibilité institutionnelle, le vert l'énergie et le signal de succès, le gris ardoise structure les textes. Le blanc et l'off-white aèrent.</p>
+    <div class="grid g3">
+      <div class="swatch">
+        <div class="chip" style="background:#0E2A47"></div>
+        <div class="meta"><b>Bleu nuit</b><span>HEX #0E2A47</span><span>RGB 14 · 42 · 71</span><span>Principale</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#15A37A"></div>
+        <div class="meta"><b>Vert énergie</b><span>HEX #15A37A</span><span>RGB 21 · 163 · 122</span><span>Accent</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#5E7488"></div>
+        <div class="meta"><b>Gris ardoise</b><span>HEX #5E7488</span><span>RGB 94 · 116 · 136</span><span>Secondaire</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#F7F9FB;border-bottom:1px solid var(--line)"></div>
+        <div class="meta"><b>Off-white</b><span>HEX #F7F9FB</span><span>RGB 247 · 249 · 251</span><span>Fond</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#1B2733"></div>
+        <div class="meta"><b>Encre</b><span>HEX #1B2733</span><span>RGB 27 · 39 · 51</span><span>Texte</span></div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#0F7D5E"></div>
+        <div class="meta"><b>Vert foncé</b><span>HEX #0F7D5E</span><span>RGB 15 · 125 · 94</span><span>Survol / actif</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. TYPOGRAPHIE -->
+<section>
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">06</span>Typographie</span>
+    <h2>Deux polices, une voix claire</h2>
+    <p class="sub">Sora pour les titres (caractère, solidité), Inter pour les textes (lisibilité). Deux polices Google Fonts gratuites, libres pour le web et l'impression.</p>
+    <div class="grid g2">
+      <div class="typeblock">
+        <div class="label">Titres — Sora</div>
+        <div class="specimen">Aa</div>
+        <div class="glyphs">ABCDEFGHIJKLM · abcdefghijklm · 0123456789</div>
+        <div class="weights">
+          <span style="font-weight:400">Regular</span>
+          <span style="font-weight:600">SemiBold</span>
+          <span style="font-weight:700">Bold</span>
+          <span style="font-weight:800">ExtraBold</span>
+        </div>
+      </div>
+      <div class="typeblock">
+        <div class="label">Texte — Inter</div>
+        <div class="specimen" style="font-family:'Inter';font-weight:700">Aa</div>
+        <div class="glyphs" style="font-family:'Inter'">ABCDEFGHIJKLM · abcdefghijklm · 0123456789</div>
+        <div class="specimen-body">Les marchés publics qui vous correspondent, détectés et montés pour vous. Vous exécutez, nous nous occupons du reste.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. TON DE VOIX -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <span class="eyebrow"><span class="num">07</span>Ton de voix & signature</span>
+    <h2>Sérieux, direct, rassurant</h2>
+    <p class="sub">On parle à des dirigeants. On va droit au but, on met en avant le bénéfice concret, et on rassure systématiquement sur le cadre de l'argent public. Jamais « vendeur », toujours « partenaire ».</p>
+    <div class="grid g2">
+      <div class="tone">
+        <h3>Signature de marque</h3>
+        <p style="font-family:'Sora';font-weight:600;color:var(--navy);font-size:1.15rem;margin-top:6px">« Vos marchés publics du bâtiment, clé en main. »</p>
+        <div style="margin-top:14px">
+          <span class="pill">Partenaire, pas vendeur</span>
+          <span class="pill">Au succès</span>
+          <span class="pill">Transparent</span>
+          <span class="pill">Sans jargon</span>
+        </div>
+      </div>
+      <div class="tone">
+        <h3>Règles d'écriture</h3>
+        <ul style="margin:8px 0 0;padding-left:18px;color:#3a4a5a;font-size:.95rem">
+          <li>Phrases courtes, voix active, « vous » plutôt que « on ».</li>
+          <li>Aucune promesse de gain ni d'influence sur l'acheteur public.</li>
+          <li>Chiffres et bénéfices concrets plutôt qu'adjectifs.</li>
+          <li>Toujours rappeler le cadre légal et la rémunération au succès.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  AO Partenaires — Charte graphique v1.0 · Fichiers logo : assets/logo-mark.svg · logo-mark-white.svg · logo-mark-mono.svg · favicon.svg
+</footer>
+
+</body>
+</html>
