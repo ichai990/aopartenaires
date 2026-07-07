@@ -14,9 +14,16 @@ const AUTH_PAGES = [
   "/invitation",
 ];
 
+// Pages publiques (site vitrine) : accessibles sans connexion.
+const PUBLIC_PAGES = ["/", "/home.html"];
+
 export default auth((req) => {
   const { nextUrl } = req;
   const user = req.auth?.user;
+
+  // Vitrine publique : on laisse passer sans authentification.
+  if (PUBLIC_PAGES.includes(nextUrl.pathname)) return;
+
   const isAuthPage = AUTH_PAGES.some((p) => nextUrl.pathname.startsWith(p));
 
   if (isAuthPage) {
