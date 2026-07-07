@@ -5,7 +5,8 @@
   "description": "BTPilot — Plateforme SaaS de réponse aux appels d'offres publics pour les entreprises du BTP",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && prisma migrate deploy && next build",
+    "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",
     "db:start": "tsx scripts/db.ts start",
