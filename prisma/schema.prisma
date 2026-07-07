@@ -1,0 +1,496 @@
+// BTPilot — Schéma de données
+// Multi-tenant strict : toute entité métier porte un companyId.
+// Les commissions vivent dans une table dédiée, jamais jointes côté client.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────── Enums ───────────────────────────
+
+enum Role {
+  SUPER_ADMIN
+  COMPANY_ADMIN
+  EMPLOYEE
+}
+
+enum Domaine {
+  PLOMBERIE
+  CVC
+  ELECTRICITE
+  PEINTURE
+  MACONNERIE
+  GROS_OEUVRE
+  SECOND_OEUVRE
+  MENUISERIE
+  ETANCHEITE
+  ISOLATION
+  MAINTENANCE
+  NETTOYAGE
+  VRD
+  SERRURERIE
+  COUVERTURE
+  RENOVATION_TCE
+}
+
+enum DocumentType {
+  KBIS
+  URSSAF
+  ATTESTATION_FISCALE
+  RC_PRO
+  DECENNALE
+  RIB
+  QUALIBAT
+  RGE
+  PG_GAZ
+  ATTESTATION_FLUIDES
+  HABILITATION_ELECTRIQUE
+  CACES
+  AMIANTE
+  AUTRE
+}
+
+enum TenderStatus {
+  A_ANALYSER
+  EN_PREPARATION
+  PIECES_MANQUANTES
+  VISITE_A_PLANIFIER
+  PRET_POUR_VALIDATION
+  EN_ATTENTE_DIRIGEANT
+  VALIDE
+  DEPOSE
+  GAGNE
+  PERDU
+}
+
+enum Disponibilite {
+  DISPONIBLE
+  PARTIELLE
+  INDISPONIBLE
+}
+
+enum EquipmentCategory {
+  VEHICULE
+  OUTILLAGE
+  MACHINE
+  NACELLE
+  ECHAFAUDAGE
+  EPI
+  LOGICIEL
+  SECURITE
+  AUTRE
+}
+
+enum CommissionStatus {
+  POTENTIELLE
+  GAGNEE
+  FACTUREE
+  ANNULEE
+}
+
+enum SourceType {
+  MANUEL
+  URL_PUBLIQUE
+  BOAMP
+  MARCHES_PUBLICS
+  AUTRE
+}
+
+enum SourceStatus {
+  ACTIVE
+  ERREUR
+  DESACTIVEE
+}
+
+enum AiProviderKind {
+  MOCK
+  ANTHROPIC
+  OPENAI
+}
+
+// ─────────────────────────── Auth & tenancy ───────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  role         Role
+  companyId    String? // null pour SUPER_ADMIN
+  company      Company?  @relation(fields: [companyId], references: [id])
+  employee     Employee?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  resetTokens PasswordResetToken[]
+  validations Validation[]
+  auditLogs   AuditLog[]
+
+  @@index([companyId])
+}
+
+model Company {
+  id                 String   @id @default(cuid())
+  raisonSociale      String
+  siret              String   @unique
+  adresse            String?
+  codePostal         String?
+  ville              String?
+  dirigeantNom       String?
+  email              String?
+  telephone          String?
+  domaines           Domaine[]
+  zonesGeographiques String[] // départements ex. ["75","92","93"]
+  caAnnuel           Decimal? @db.Decimal(14, 2)
+  effectif           Int?
+  capaciteFinanciere Decimal? @db.Decimal(14, 2)
+  description        String?
+  assurances         Json? // [{type, assureur, numeroContrat, echeance}]
+  qualifications     String[]
+  certifications     String[]
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  users          User[]
+  documents      Document[]
+  employees      Employee[]
+  equipments     Equipment[]
+  references     Reference[]
+  pricingProfile PricingProfile?
+  tenders        Tender[]
+  invitations    Invitation[]
+  commissions    Commission[]
+}
+
+model Invitation {
+  id          String    @id @default(cuid())
+  email       String
+  role        Role
+  companyId   String?
+  company     Company?  @relation(fields: [companyId], references: [id])
+  tokenHash   String    @unique
+  expiresAt   DateTime
+  acceptedAt  DateTime?
+  revokedAt   DateTime?
+  invitedById String
+  createdAt   DateTime  @default(now())
+
+  @@index([companyId])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(cuid())
+  userId    String
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+}
+
+// ─────────────────────────── Profil entreprise ───────────────────────────
+
+model Document {
+  id               String       @id @default(cuid())
+  companyId        String
+  company          Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  employeeId       String?
+  employee         Employee?    @relation(fields: [employeeId], references: [id])
+  type             DocumentType
+  label            String
+  storageKey       String
+  fileName         String
+  mimeType         String
+  sizeBytes        Int
+  dateEmission     DateTime?
+  dateExpiration   DateTime? // statut valide/expiré calculé à la lecture
+  commentaireAdmin String?
+  uploadedById     String
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([companyId, type])
+  @@index([dateExpiration])
+}
+
+model Employee {
+  id               String        @id @default(cuid())
+  companyId        String
+  company          Company       @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  userId           String?       @unique
+  user             User?         @relation(fields: [userId], references: [id])
+  nom              String
+  prenom           String
+  poste            String
+  experienceAnnees Int?
+  competences      String[]
+  habilitations    Json? // [{type, obtention, echeance}]
+  formations       Json? // [{intitule, organisme, annee}]
+  permis           String[]
+  roleChantier     String?
+  disponibilite    Disponibilite @default(DISPONIBLE)
+  cvGenere         String? // CV court auto-généré (markdown)
+  documents        Document[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  @@index([companyId])
+}
+
+model Equipment {
+  id            String            @id @default(cuid())
+  companyId     String
+  company       Company           @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  categorie     EquipmentCategory
+  nom           String
+  description   String?
+  quantite      Int               @default(1)
+  disponibilite Disponibilite     @default(DISPONIBLE)
+  photoKey      String?
+  createdAt     DateTime          @default(now())
+  updatedAt     DateTime          @updatedAt
+
+  @@index([companyId])
+}
+
+model Reference {
+  id               String   @id @default(cuid())
+  companyId        String
+  company          Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  nomChantier      String
+  client           String
+  prestation       String
+  domaine          Domaine
+  montantHT        Decimal  @db.Decimal(14, 2)
+  annee            Int
+  dureeMois        Int?
+  description      String?
+  photoKeys        String[]
+  contactAutorise  Boolean  @default(false)
+  contactNom       String?
+  contactTelephone String?
+  contactEmail     String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  @@index([companyId, domaine])
+}
+
+model PricingProfile {
+  id                String       @id @default(cuid())
+  companyId         String       @unique
+  company           Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  tauxHoraireMoyen  Decimal?     @db.Decimal(10, 2)
+  coutDeplacementKm Decimal?     @db.Decimal(10, 2)
+  prixJourneeEquipe Decimal?     @db.Decimal(10, 2)
+  margeCiblePct     Decimal?     @db.Decimal(5, 2)
+  fraisGenerauxPct  Decimal?     @db.Decimal(5, 2)
+  notes             String?
+  items             PricingItem[]
+  domainRates       DomainRate[]
+  updatedAt         DateTime     @updatedAt
+}
+
+model PricingItem {
+  id               String         @id @default(cuid())
+  pricingProfileId String
+  profile          PricingProfile @relation(fields: [pricingProfileId], references: [id], onDelete: Cascade)
+  libelle          String
+  unite            String
+  prixUnitaireHT   Decimal        @db.Decimal(12, 2)
+  domaine          Domaine?
+}
+
+model DomainRate {
+  id               String         @id @default(cuid())
+  pricingProfileId String
+  profile          PricingProfile @relation(fields: [pricingProfileId], references: [id], onDelete: Cascade)
+  domaine          Domaine
+  tauxHoraire      Decimal        @db.Decimal(10, 2)
+
+  @@unique([pricingProfileId, domaine])
+}
+
+// ─────────────────────────── Appels d'offres ───────────────────────────
+
+model Source {
+  id        String       @id @default(cuid())
+  nom       String
+  type      SourceType
+  baseUrl   String?
+  status    SourceStatus @default(ACTIVE)
+  lastRunAt DateTime?
+  lastError String?
+  config    Json?
+  tenders   Tender[]
+  createdAt DateTime     @default(now())
+}
+
+model Tender {
+  id                String       @id @default(cuid())
+  companyId         String
+  company           Company      @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  sourceId          String?
+  source            Source?      @relation(fields: [sourceId], references: [id])
+  reference         String? // n° de consultation
+  objet             String
+  acheteur          String?
+  url               String?
+  domaine           Domaine?
+  lieu              String?
+  montantEstimeHT   Decimal?     @db.Decimal(14, 2)
+  dateLimite        DateTime?
+  visiteObligatoire Boolean      @default(false)
+  visitePlanifieeLe DateTime?
+  status            TenderStatus @default(A_ANALYSER)
+  createdById       String
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+
+  files      TenderFile[]
+  analysis   TenderAnalysis?
+  proposal   Proposal?
+  commission Commission?
+
+  @@index([companyId, status])
+}
+
+model TenderFile {
+  id         String   @id @default(cuid())
+  tenderId   String
+  tender     Tender   @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  storageKey String
+  fileName   String
+  mimeType   String
+  sizeBytes  Int
+  createdAt  DateTime @default(now())
+}
+
+model TenderAnalysis {
+  id                  String   @id @default(cuid())
+  tenderId            String   @unique
+  tender              Tender   @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  provider            String // "mock" | "anthropic" | "openai"
+  model               String?
+  extraction          Json // AnalyseDCE validée par zod
+  compatibilityScore  Int? // 0..100
+  compatibilityDetail Json? // détail par critère
+  missingDocuments    Json? // [{type, libelle, critique}]
+  champsACompleter    String[]
+  analysedAt          DateTime @default(now())
+}
+
+// ─────────────────────────── Dossiers & validation ───────────────────────────
+
+model Proposal {
+  id               String            @id @default(cuid())
+  tenderId         String            @unique
+  tender           Tender            @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  companyId        String
+  currentVersionId String?           @unique
+  currentVersion   ProposalVersion?  @relation("Current", fields: [currentVersionId], references: [id])
+  versions         ProposalVersion[]
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+
+  @@index([companyId])
+}
+
+// Immuable une fois créé : c'est cette version qui est validée par le dirigeant.
+model ProposalVersion {
+  id                      String       @id @default(cuid())
+  proposalId              String
+  proposal                Proposal     @relation(fields: [proposalId], references: [id], onDelete: Cascade)
+  versionNumber           Int
+  memoireTechnique        Json // sections structurées avec flag aCompleter
+  checklistAdministrative Json
+  checklistTechnique      Json
+  checklistFinanciere     Json
+  referencesSelectionnees Json // [{referenceId, similarite, justification}]
+  moyensHumains           Json // [{employeeId, roleChantier}]
+  moyensMateriels         Json // [{equipmentId, quantite}]
+  planning                Json?
+  questionsAcheteur       Json
+  prixProposeHT           Decimal?     @db.Decimal(14, 2)
+  delaiProposeJours       Int?
+  contentHash             String // sha256 du contenu — preuve de ce qui a été validé
+  createdById             String
+  createdAt               DateTime     @default(now())
+  validations             Validation[]
+  currentOf               Proposal?    @relation("Current")
+
+  @@unique([proposalId, versionNumber])
+}
+
+// Trace de validation dirigeant — append-only, jamais modifiée.
+model Validation {
+  id                      String          @id @default(cuid())
+  proposalVersionId       String
+  proposalVersion         ProposalVersion @relation(fields: [proposalVersionId], references: [id])
+  tenderId                String
+  companyId               String
+  userId                  String
+  user                    User            @relation(fields: [userId], references: [id])
+  prixValide              Boolean
+  delaisValides           Boolean
+  moyensHumainsValides    Boolean
+  moyensMaterielsValides  Boolean
+  engagementsValides      Boolean
+  autorisationDepot       Boolean
+  commentaire             String?
+  ipAddress               String
+  userAgent               String?
+  contentHash             String // hash de la version au moment de la validation
+  validatedAt             DateTime        @default(now())
+
+  @@index([companyId])
+  @@index([tenderId])
+}
+
+// ─────────────────────────── Commissions (ADMIN ONLY) ───────────────────────────
+
+model Commission {
+  id                String           @id @default(cuid())
+  tenderId          String           @unique
+  tender            Tender           @relation(fields: [tenderId], references: [id], onDelete: Cascade)
+  companyId         String
+  company           Company          @relation(fields: [companyId], references: [id])
+  montantMarcheHT   Decimal          @db.Decimal(14, 2)
+  montantCommission Decimal          @db.Decimal(14, 2)
+  bareme            Json // détail par tranche [{de, a, taux, assiette, montant}]
+  status            CommissionStatus @default(POTENTIELLE)
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+}
+
+// ─────────────────────────── Audit & réglages ───────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id])
+  companyId  String?
+  action     String // "PROPOSAL_VALIDATED", "TENDER_STATUS_CHANGED", ...
+  entityType String?
+  entityId   String?
+  metadata   Json?
+  ipAddress  String?
+  createdAt  DateTime @default(now())
+
+  @@index([companyId, createdAt])
+}
+
+model AiSettings {
+  id          String         @id @default("default")
+  provider    AiProviderKind @default(MOCK)
+  model       String?
+  temperature Float          @default(0.2)
+  updatedAt   DateTime       @updatedAt
+}

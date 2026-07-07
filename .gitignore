@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# next.js
+.next/
+out/
+next-env.d.ts
+
+# production
+build/
+
+# env
+.env
+.env*.local
+
+# base de données locale embarquée
+.pgdata/
+
+# fichiers uploadés (privés)
+var/
+
+# divers
+.DS_Store
+*.tsbuildinfo
+*.log
