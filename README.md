@@ -28,9 +28,14 @@ npm run dev        # http://localhost:3000
 
 | Rôle | Email | Mot de passe |
 |---|---|---|
-| Super admin BTPilot | `admin@btpilot.fr` | `Admin1234!` |
+| Super admin BTPilot | `admin@btpilot.fr` | `Admin1234!` ⚠️ |
 | Dirigeant (Nova BTP) | `martin.sanchez@novabtp.fr` | `Nova1234!` |
 | Employée (Nova BTP) | `julie.moreau@novabtp.fr` | `Nova1234!` |
+
+> ⚠️ Dès que l'application est accessible publiquement (tunnel, Vercel, VPS),
+> **désactivez le super admin de démo** (mot de passe public dans ce README) et
+> utilisez votre propre compte : `UPDATE "User" SET "isActive" = false WHERE
+> email = 'admin@btpilot.fr';` — la désactivation est à effet immédiat.
 
 Le seed crée l'entreprise **Nova BTP** (4 salariés, 8 matériels, 4 références,
 10 documents dont 2 expirés) et **3 appels d'offres** à des stades différents :
