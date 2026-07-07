@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AO Partenaires — Vos marchés publics du bâtiment, clé en main</title>
+<meta name="description" content="AO Partenaires détecte, qualifie et vous transmet clé en main les appels d'offres publics du bâtiment (CVC, plomberie, chauffage) en Île-de-France. Rémunération au succès uniquement." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0E2A47;
+    --slate:#5E7488;
+    --green:#15A37A;
+    --green-dark:#0F7D5E;
+    --bg:#F7F9FB;
+    --white:#FFFFFF;
+    --ink:#1B2733;
+    --line:#E8EDF2;
+    --radius:16px;
+    --maxw:1140px;
+    --shadow:0 18px 50px rgba(14,42,71,.10);
+    --shadow-sm:0 6px 20px rgba(14,42,71,.07);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--white);line-height:1.65;-webkit-font-smoothing:antialiased}
+  h1,h2,h3,.brand{font-family:'Sora',sans-serif;color:var(--navy);line-height:1.14;letter-spacing:-.015em}
+  h2{font-size:clamp(1.7rem,3.2vw,2.5rem);font-weight:700;margin-bottom:.5rem}
+  h3{font-size:1.12rem;font-weight:600}
+  p{color:#41525f}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+  section{padding:96px 0}
+  .eyebrow{display:inline-block;font-size:.76rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--green);margin-bottom:14px}
+  .lead{font-size:1.1rem;color:var(--slate);max-width:680px}
+
+  .btn{display:inline-flex;align-items:center;gap:8px;font-family:'Sora',sans-serif;font-weight:600;font-size:.97rem;padding:14px 26px;border-radius:11px;border:1px solid transparent;cursor:pointer;transition:.18s;white-space:nowrap}
+  .btn-primary{background:var(--green);color:#fff}
+  .btn-primary:hover{background:var(--green-dark);transform:translateY(-1px)}
+  .btn-primary:disabled{opacity:.6;cursor:default;transform:none}
+  .btn-ghost{background:transparent;color:var(--navy);border-color:var(--line)}
+  .btn-ghost:hover{border-color:var(--navy)}
+  .btn-light{background:#fff;color:var(--navy)}
+  .btn-light:hover{transform:translateY(-1px)}
+
+  /* Header */
+  header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px}
+  .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.26rem;white-space:nowrap;line-height:1}
+  .logo-mark{height:34px;display:inline-flex;align-items:center;flex:0 0 auto}
+  .logo-mark svg{height:32px;width:auto;display:block}
+  .nav-links{display:flex;gap:26px;align-items:center}
+  .nav-links a{font-size:.94rem;color:var(--slate);font-weight:500;white-space:nowrap;line-height:1}
+  .nav-links a:hover{color:var(--navy)}
+  .nav-cta{display:flex;gap:10px;align-items:center}
+  .nav-cta .btn{padding:11px 18px;font-size:.92rem}
+  .burger{display:none;background:none;border:0;font-size:1.7rem;line-height:1;color:var(--navy);cursor:pointer;padding:4px}
+
+  /* Hero */
+  .hero{position:relative;color:#fff;overflow:hidden;min-height:600px;display:flex;align-items:center}
+  .hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat}
+  .hero-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(9,25,44,.96) 0%,rgba(12,33,56,.92) 42%,rgba(14,42,71,.74) 100%)}
+  .hero .wrap{position:relative;z-index:2;padding-top:88px;padding-bottom:88px}
+  .hero h1{color:#fff;font-size:clamp(2.1rem,4.6vw,3.4rem);font-weight:800;max-width:760px}
+  .hero p.lead{color:#d2dde9;margin-top:20px;font-size:1.14rem;max-width:600px}
+  .hero .badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#eaf1f8;padding:8px 15px;border-radius:999px;font-size:.82rem;font-weight:500;margin-bottom:24px}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:32px}
+  .hero-trust{display:flex;gap:40px;flex-wrap:wrap;margin-top:46px;color:#9fb3c8;font-size:.88rem}
+  .hero-trust strong{color:#fff;font-family:'Sora',sans-serif;font-size:1.4rem;display:block;margin-bottom:2px}
+
+  /* Generic split */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .media{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);position:relative}
+  .media img{width:100%;height:100%;object-fit:cover;aspect-ratio:4/3}
+  .alt{background:var(--bg)}
+
+  /* Cards */
+  .grid{display:grid;gap:24px}
+  .g-2{grid-template-columns:repeat(2,1fr)}
+  .g-3{grid-template-columns:repeat(3,1fr)}
+  .g-4{grid-template-columns:repeat(4,1fr)}
+  .card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm)}
+  .icon{width:46px;height:46px;border-radius:12px;background:rgba(21,163,122,.11);color:var(--green);display:grid;place-items:center;margin-bottom:18px}
+  .icon svg{width:23px;height:23px}
+
+  /* Problem list */
+  .prob{list-style:none}
+  .prob li{padding:13px 0 13px 32px;position:relative;color:#41525f}
+  .prob li+li{border-top:1px solid var(--line)}
+  .prob li:before{content:"";position:absolute;left:0;top:19px;width:14px;height:14px;border-radius:50%;background:rgba(214,106,106,.18);border:2px solid #d96a6a}
+
+  /* Band */
+  .band{position:relative;color:#fff;text-align:left;padding:120px 0}
+  .band-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1542744094-3a31f272c490?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat}
+  .band-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,28,49,.92) 0%,rgba(14,42,71,.82) 55%,rgba(14,42,71,.6) 100%)}
+  .band .wrap{position:relative;z-index:2}
+  .band h2{color:#fff;max-width:620px}
+  .band p{color:#cfdbe8;max-width:540px;margin:14px 0 0}
+
+  /* Risk */
+  .risk{background:var(--navy);color:#fff;border-radius:22px;padding:60px 52px;position:relative;overflow:hidden}
+  .risk:after{content:"";position:absolute;right:-100px;top:-80px;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(21,163,122,.35),transparent 70%)}
+  .risk h2{color:#fff;position:relative}
+  .risk p{color:#cfdbe8;position:relative}
+  .risk .big{font-family:'Sora',sans-serif;font-size:clamp(2rem,5vw,3rem);font-weight:800;color:var(--green);margin:12px 0;position:relative}
+
+  /* Steps */
+  .step .num{font-family:'Sora',sans-serif;font-weight:800;font-size:1.3rem;color:#fff;background:var(--green);width:44px;height:44px;border-radius:50%;display:grid;place-items:center;margin-bottom:16px}
+
+  /* Fit list */
+  .fit{display:flex;gap:12px;align-items:flex-start;padding:11px 0}
+  .fit svg{flex:0 0 auto;margin-top:3px}
+
+  /* FAQ */
+  details{border:1px solid var(--line);border-radius:13px;padding:4px 24px;margin-bottom:12px;background:#fff;transition:.2s}
+  details[open]{box-shadow:var(--shadow-sm)}
+  summary{font-family:'Sora',sans-serif;font-weight:600;color:var(--navy);cursor:pointer;padding:19px 0;list-style:none;display:flex;justify-content:space-between;align-items:center;gap:16px}
+  summary::-webkit-details-marker{display:none}
+  summary:after{content:"+";font-size:1.5rem;color:var(--green);transition:.2s}
+  details[open] summary:after{transform:rotate(45deg)}
+  details p{padding:0 0 21px;color:#41525f}
+
+  /* Contact */
+  .contact{position:relative;color:#fff;overflow:hidden}
+  .contact-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=1920&q=80&auto=format&fit=crop') center/cover no-repeat}
+  .contact-bg:after{content:"";position:absolute;inset:0;background:linear-gradient(120deg,rgba(10,28,49,.96),rgba(14,42,71,.9))}
+  .contact .wrap{position:relative;z-index:2}
+  .contact h2{color:#fff}
+  .contact .lead{color:#cfdbe8}
+  form{background:#fff;border-radius:20px;padding:36px;box-shadow:var(--shadow)}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:.85rem;font-weight:600;color:var(--navy);margin-bottom:6px}
+  .field input,.field select{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:10px;font-family:inherit;font-size:.97rem;color:var(--ink);background:#fff}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(21,163,122,.15)}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  form .btn-primary{width:100%;justify-content:center;margin-top:8px}
+  .form-note{font-size:.83rem;color:var(--slate);margin-top:14px;text-align:center;min-height:1.2em}
+
+  /* Footer */
+  footer{background:#0a1f36;color:#9fb3c8;padding:54px 0 28px;font-size:.9rem}
+  .foot-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;padding-bottom:30px;border-bottom:1px solid rgba(255,255,255,.1)}
+  .foot-top .brand{color:#fff}
+  footer a:hover{color:#fff}
+  .foot-bottom{padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem;color:#6f859b}
+
+  /* ===== TABLETTE (paysage) ===== */
+  @media(max-width:1024px){
+    section{padding:80px 0}
+    .g-4{grid-template-columns:repeat(2,1fr)}
+    .hero h1{font-size:clamp(2rem,4.4vw,3rem)}
+  }
+
+  /* ===== NAVBAR → menu mobile ===== */
+  @media(max-width:960px){
+    .nav-links{position:absolute;top:72px;left:0;right:0;background:#fff;flex-direction:column;align-items:stretch;gap:0;padding:6px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);box-shadow:var(--shadow);display:none}
+    .nav-links.open{display:flex}
+    .nav-links a{padding:15px 24px;font-size:1rem}
+    .nav-cta .btn-ghost{display:none}
+    .burger{display:block}
+  }
+
+  /* ===== TABLETTE (portrait) ===== */
+  @media(max-width:880px){
+    .g-3{grid-template-columns:1fr}
+    .g-2,.split{grid-template-columns:1fr}
+    .split{gap:36px}
+    .split .media{order:-1}
+    .split .media img{aspect-ratio:16/9}
+    .hero{min-height:auto}
+    .hero-bg:after{background:linear-gradient(175deg,rgba(9,25,44,.95),rgba(14,42,71,.9))}
+    .hero p.lead,.hero h1{max-width:100%}
+  }
+
+  /* ===== MOBILE ===== */
+  @media(max-width:640px){
+    .wrap{padding:0 18px}
+    section{padding:54px 0}
+    .g-4{grid-template-columns:1fr}
+    .form-row{grid-template-columns:1fr}
+    form{padding:24px}
+    .risk{padding:32px 22px}
+    .band{padding:60px 0}
+    .hero .wrap{padding-top:60px;padding-bottom:60px}
+    .hero-trust{gap:22px;margin-top:32px}
+    .hero-trust strong{font-size:1.25rem}
+    .hero-cta{flex-direction:column;align-items:stretch}
+    .hero-cta .btn{width:100%;justify-content:center}
+    .nav-cta .btn-primary{padding:10px 15px;font-size:.85rem}
+    .brand{font-size:1.12rem}
+    .foot-top{flex-direction:column;gap:26px}
+    h2{font-size:1.5rem}
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="wrap nav">
+    <a href="#" class="brand">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 250 156" fill="none"><circle cx="172" cy="80" r="54" fill="none" stroke="#0E2A47" stroke-width="18"/><path d="M32 142 L82 18 132 142" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 98 H114" fill="none" stroke="#0E2A47" stroke-width="18" stroke-linecap="round"/><path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/></svg>
+      </span>
+      AO&nbsp;Partenaires
+    </a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#probleme">Le problème</a>
+      <a href="#solution">Notre rôle</a>
+      <a href="#etapes">Comment ça marche</a>
+      <a href="#pourqui">Pour qui</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <div class="nav-cta">
+      <a href="/connexion" class="btn btn-ghost">Recevoir des opportunités</a>
+      <a href="/connexion" class="btn btn-primary">Prendre RDV</a>
+    </div>
+    <button class="burger" aria-label="Menu" aria-expanded="false" onclick="var n=document.getElementById('navLinks');var o=n.classList.toggle('open');this.setAttribute('aria-expanded',o);this.textContent=o?'✕':'☰'">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="badge">● Apporteur d'affaires — Marchés publics du bâtiment · Île-de-France</span>
+    <h1>Votre apporteur d'affaires sur les marchés publics du bâtiment.</h1>
+    <p class="lead">Nous détectons les appels d'offres faits pour vous (CVC, plomberie, chauffage, rénovation énergétique), nous montons tout le dossier administratif, et nous vous les transmettons clé en main. Vous exécutez le chantier — <strong style="color:#fff">nous ne sommes payés que si vous gagnez.</strong></p>
+    <div class="hero-cta">
+      <a href="/connexion" class="btn btn-primary">Prendre RDV — 20 min</a>
+      <a href="#solution" class="btn btn-light">Comprendre notre rôle</a>
+    </div>
+    <div class="hero-trust">
+      <div><strong>0 € d'avance</strong>Vous ne risquez rien : commission au succès</div>
+      <div><strong>Experts administratif</strong>On monte le dossier de A à Z</div>
+      <div><strong>Île-de-France</strong>Veille ciblée sur votre zone</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEME -->
+<section id="probleme">
+  <div class="wrap split">
+    <div>
+      <span class="eyebrow">Le constat</span>
+      <h2>Vous savez exécuter. Mais qui cherche les marchés pour vous ?</h2>
+      <p class="lead" style="margin-bottom:24px">Les entreprises de 5 à 10 salariés sont structurées pour les chantiers, pas pour la veille et la réponse aux appels d'offres publics. Résultat : des marchés rentables passent à côté, faute de temps.</p>
+      <ul class="prob">
+        <li>Personne en interne pour surveiller les plateformes d'appels d'offres au quotidien.</li>
+        <li>Des dossiers complexes (DCE, mémoire technique, DPGF) chronophages à monter.</li>
+        <li>Des délais courts incompatibles avec la charge des chantiers en cours.</li>
+        <li>Des opportunités à votre porte, remportées par des concurrents mieux organisés.</li>
+      </ul>
+    </div>
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&q=80&auto=format&fit=crop" alt="Dirigeants d'entreprise face à la gestion administrative" loading="lazy" />
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" class="alt">
+  <div class="wrap">
+    <span class="eyebrow">Notre rôle</span>
+    <h2>Un facilitateur entre la commande publique et votre entreprise.</h2>
+    <p class="lead">AO Partenaires n'exécute pas de chantiers : nous faisons le travail de détection et de préparation que vous n'avez pas le temps de faire, puis nous vous passons le relais.</p>
+    <div class="grid g-4" style="margin-top:44px">
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="#15A37A" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="#15A37A" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>1. Sourcing</h3>
+        <p>Veille continue des appels d'offres publics CVC, plomberie, chauffage et rénovation énergétique en Île-de-France.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#15A37A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <h3>2. Qualification</h3>
+        <p>Nous filtrons : seuls les marchés réellement adaptés à votre taille, vos compétences et votre zone vous sont transmis.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M7 8h10M7 12h10M7 16h6" stroke="#15A37A" stroke-width="2" stroke-linecap="round"/></svg></div>
+        <h3>3. Mise en relation</h3>
+        <p>Le marché vous est transmis clé en main, avec les pièces essentielles et l'analyse des attendus.</p>
+      </div>
+      <div class="card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3l8 4v5c0 5-3.5 7.5-8 9-4.5-1.5-8-4-8-9V7l8-4z" stroke="#15A37A" stroke-width="2" stroke-linejoin="round"/></svg></div>
+        <h3>4. Accompagnement</h3>
+        <p>Nous vous appuyons sur le montage du dossier de candidature pour maximiser vos chances.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="/connexion" class="btn btn-primary js-crm">Accéder à mon espace</a>
+    </div>
+  </div>
+</section>
+
+<!-- BAND -->
+<section class="band">
+  <div class="band-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <span class="eyebrow" style="color:#7fe3c3">Experts en administratif</span>
+    <h2>Le dossier administratif ? On s'occupe de tout.</h2>
+    <p>Pièces administratives, mémoire technique, DPGF, dépôt sur les plateformes : nous montons le dossier de A à Z. Vous n'avez ni paperasse à gérer, ni risque à prendre — notre commission n'est due que si le marché est remporté.</p>
+    <a href="/connexion" class="btn btn-primary" style="margin-top:28px">Confier mon administratif</a>
+  </div>
+</section>
+
+<!-- COMMENT CA MARCHE -->
+<section id="etapes">
+  <div class="wrap">
+    <span class="eyebrow">Comment ça marche</span>
+    <h2>Quatre étapes, zéro charge mentale pour vous.</h2>
+    <div class="grid g-4" style="margin-top:44px">
+      <div class="step card">
+        <div class="num">1</div>
+        <h3>On se cale</h3>
+        <p>Un échange de 20 min pour cerner vos métiers, votre capacité, vos zones et les marchés qui vous intéressent.</p>
+      </div>
+      <div class="step card">
+        <div class="num">2</div>
+        <h3>On détecte</h3>
+        <p>Nous surveillons les plateformes et vous alertons dès qu'une opportunité pertinente sort.</p>
+      </div>
+      <div class="step card">
+        <div class="num">3</div>
+        <h3>On prépare</h3>
+        <p>Vous validez l'opportunité, nous vous accompagnons sur le montage du dossier de réponse.</p>
+      </div>
+      <div class="step card">
+        <div class="num">4</div>
+        <h3>Vous exécutez</h3>
+        <p>Le marché remporté, vous réalisez le chantier. Nous percevons notre commission au succès.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="/connexion" class="btn btn-primary js-crm">Commencer maintenant</a>
+    </div>
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section id="pourqui" class="alt">
+  <div class="wrap split">
+    <div class="media">
+      <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?w=1000&q=80&auto=format&fit=crop" alt="Technicien CVC sur installation" loading="lazy" />
+    </div>
+    <div>
+      <span class="eyebrow">Pour qui</span>
+      <h2>Pensé pour les entreprises du bâtiment technique qui veulent grandir.</h2>
+      <p class="lead" style="margin-bottom:18px">AO Partenaires s'adresse aux dirigeants qui ont les équipes pour livrer, mais pas la structure pour chasser les marchés publics.</p>
+      <div class="fit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#15A37A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Entreprises de <strong>5 à 10 salariés</strong> en CVC, plomberie, chauffage, climatisation, ventilation.</span></div>
+      <div class="fit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#15A37A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Activités de <strong>maintenance et rénovation énergétique</strong> cherchant un carnet de commandes plus stable.</span></div>
+      <div class="fit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#15A37A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Dirigeants en <strong>Île-de-France</strong>, capables d'exécuter mais débordés par la veille.</span></div>
+      <div class="fit"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 12l5 5L20 6" stroke="#15A37A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Entreprises <strong>peu ou pas présentes</strong> sur la commande publique et qui veulent s'y mettre sérieusement.</span></div>
+      <a href="/connexion" class="btn btn-primary js-crm" style="margin-top:26px">Rejoindre AO Partenaires</a>
+    </div>
+  </div>
+</section>
+
+<!-- CREDIBILITE -->
+<section id="credibilite">
+  <div class="wrap">
+    <span class="eyebrow">Transparence & cadre légal</span>
+    <h2>Un partenaire clair sur ce qu'il fait — et sur ce qu'il ne fait pas.</h2>
+    <p class="lead">La crédibilité face à l'argent public n'est pas négociable. Notre rôle s'arrête à la détection et à la préparation : la décision appartient à l'acheteur public.</p>
+    <div class="grid g-3" style="margin-top:44px">
+      <div class="card">
+        <h3>Aucune influence sur l'acheteur</h3>
+        <p>Nous n'intervenons jamais auprès des acheteurs publics. Nous ne promettons ni ne sous-entendons aucun avantage : le choix se fait sur votre seule offre.</p>
+      </div>
+      <div class="card">
+        <h3>Rémunération transparente</h3>
+        <p>Une commission au succès, définie à l'avance et formalisée par écrit. Pas de frais cachés, pas de zone grise.</p>
+      </div>
+      <div class="card">
+        <h3>Information publique, traitée proprement</h3>
+        <p>Nous travaillons à partir d'appels d'offres publiquement accessibles. Notre valeur, c'est le temps et l'expertise, pas un accès privilégié.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:40px">
+      <a href="/connexion" class="btn btn-primary js-crm">Accéder au CRM</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" class="alt">
+  <div class="wrap" style="max-width:840px">
+    <span class="eyebrow">Questions fréquentes</span>
+    <h2 style="margin-bottom:32px">Ce que les dirigeants nous demandent.</h2>
+
+    <details>
+      <summary>Concrètement, vous êtes payé comment ?</summary>
+      <p>Uniquement au succès. AO Partenaires perçoit une commission, convenue à l'avance et formalisée par écrit, seulement si le marché que nous vous avons transmis est remporté. Aucun frais d'avance, aucun abonnement.</p>
+    </details>
+    <details>
+      <summary>Est-ce que vous garantissez que je vais gagner des marchés ?</summary>
+      <p>Non, et personne de sérieux ne peut le garantir. La décision appartient à l'acheteur public. Nous maximisons vos chances en ne vous transmettant que des opportunités pertinentes et en soignant le dossier — mais le résultat dépend de votre offre.</p>
+    </details>
+    <details>
+      <summary>Avez-vous une influence sur les acheteurs publics ?</summary>
+      <p>Aucune, et c'est volontaire. Nous n'intervenons jamais auprès des acheteurs. Notre travail se situe en amont : détection, qualification et préparation. C'est ce cadre strict qui protège votre crédibilité comme la nôtre.</p>
+    </details>
+    <details>
+      <summary>Je n'ai jamais répondu à un appel d'offres public. C'est un problème ?</summary>
+      <p>Au contraire, c'est exactement pour cela qu'AO Partenaires existe. Nous vous accompagnons sur le montage du dossier (pièces administratives, mémoire technique, DPGF) et vous guidons à chaque étape.</p>
+    </details>
+    <details>
+      <summary>Quels types de marchés me transmettez-vous ?</summary>
+      <p>Des marchés publics du bâtiment technique en Île-de-France : CVC, plomberie, chauffage, climatisation, ventilation, maintenance et rénovation énergétique — filtrés selon votre taille, vos compétences et votre zone.</p>
+    </details>
+    <details>
+      <summary>Suis-je engagé sur la durée ?</summary>
+      <p>Non. Vous restez libre de répondre ou non à chaque opportunité transmise. Nos conditions sont claires et sans engagement caché ; nous vous les présentons par écrit avant tout démarrage.</p>
+    </details>
+    <div style="text-align:center;margin-top:36px">
+      <a href="/connexion" class="btn btn-primary js-crm">Accéder à mon espace CRM</a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact">
+  <div class="contact-bg" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="split" style="gap:48px">
+      <div>
+        <span class="eyebrow" style="color:#7fe3c3">Parlons-en</span>
+        <h2>Recevez vos premières opportunités.</h2>
+        <p class="lead">Laissez-nous vos coordonnées ou prenez un RDV de 20 minutes. Nous revenons vers vous rapidement avec une lecture concrète des marchés adaptés à votre entreprise.</p>
+        <div style="margin-top:30px;color:#cfdbe8">
+          <p style="color:#cfdbe8;margin-bottom:10px">✓ Échange sans engagement</p>
+          <p style="color:#cfdbe8;margin-bottom:10px">✓ Rémunération au succès uniquement</p>
+          <p style="color:#cfdbe8">✓ Spécialiste CVC / plomberie / chauffage — Île-de-France</p>
+        </div>
+        <a href="/connexion" class="btn btn-primary js-crm" style="margin-top:28px">Accéder à mon espace CRM</a>
+      </div>
+
+      <form id="contactForm">
+        <div class="form-row">
+          <div class="field">
+            <label for="nom">Nom complet *</label>
+            <input id="nom" name="nom" type="text" required placeholder="Jean Dupont" />
+          </div>
+          <div class="field">
+            <label for="entreprise">Entreprise *</label>
+            <input id="entreprise" name="entreprise" type="text" required placeholder="Nom de la société" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="metier">Métier *</label>
+            <select id="metier" name="metier" required>
+              <option value="">Sélectionnez…</option>
+              <option>CVC (chauffage-ventilation-clim.)</option>
+              <option>Plomberie</option>
+              <option>Chauffage</option>
+              <option>Climatisation / Ventilation</option>
+              <option>Maintenance</option>
+              <option>Rénovation énergétique</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="zone">Zone d'intervention *</label>
+            <select id="zone" name="zone" required>
+              <option value="">Sélectionnez…</option>
+              <option>Paris (75)</option>
+              <option>Petite couronne (92, 93, 94)</option>
+              <option>Grande couronne (77, 78, 91, 95)</option>
+              <option>Toute l'Île-de-France</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <label for="tel">Téléphone *</label>
+            <input id="tel" name="tel" type="tel" required placeholder="06 12 34 56 78" />
+          </div>
+          <div class="field">
+            <label for="email">Email *</label>
+            <input id="email" name="email" type="email" required placeholder="vous@entreprise.fr" />
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Recevoir des opportunités</button>
+        <p class="form-note">Vos données ne servent qu'à vous recontacter. Aucun engagement.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="brand" style="font-size:1.2rem;margin-bottom:10px">
+          <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 250 156" fill="none"><circle cx="172" cy="80" r="54" fill="none" stroke="#fff" stroke-width="18"/><path d="M32 142 L82 18 132 142" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/><path d="M50 98 H114" fill="none" stroke="#fff" stroke-width="18" stroke-linecap="round"/><path d="M120 50 A42 42 0 0 0 120 110" fill="none" stroke="#15A37A" stroke-width="18" stroke-linecap="round"/></svg></span>
+          AO&nbsp;Partenaires
+        </div>
+        <p style="max-width:320px;color:#9fb3c8">Facilitateur en marchés publics du bâtiment. Détection, qualification et accompagnement — Île-de-France.</p>
+      </div>
+      <div>
+        <p style="color:#fff;font-family:'Sora';font-weight:600;margin-bottom:10px">Navigation</p>
+        <p style="margin-bottom:6px"><a href="#solution">Notre rôle</a></p>
+        <p style="margin-bottom:6px"><a href="#etapes">Comment ça marche</a></p>
+        <p style="margin-bottom:6px"><a href="#faq">FAQ</a></p>
+        <p><a href="/connexion">Contact</a></p>
+      </div>
+      <div>
+        <p style="color:#fff;font-family:'Sora';font-weight:600;margin-bottom:10px">Contact</p>
+        <p style="margin-bottom:6px"><a href="/connexion">Prendre RDV</a></p>
+        <p style="margin-bottom:6px"><a href="mailto:ichaizeitoun@gmail.com">ichaizeitoun@gmail.com</a></p>
+        <p style="margin-bottom:6px"><a href="tel:+33766741634">07 66 74 16 34</a></p>
+        <p><a href="tel:+33611697424">06 11 69 74 24</a></p>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 AO Partenaires — Tous droits réservés.</span>
+      <span>[Mentions légales] · [Politique de confidentialité] — à compléter · Photos : Unsplash</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ====== ADRESSE DU CRM (à modifier ICI, une seule fois) ======
+  // Change cette valeur quand l'adresse de ton CRM change ; TOUS les boutons du site suivront.
+  const CRM_URL = "/connexion";
+  document.querySelectorAll('a.js-crm').forEach(function(a){ a.href = CRM_URL; });
+
+  // ====== CONNEXION GOOGLE SHEET ======
+  // Collez ci-dessous l'URL de votre application Google Apps Script (déployée en "Web app").
+  // Tant que cette valeur n'est pas remplie, le formulaire reste en mode démo.
+  const SHEET_ENDPOINT = "https://script.google.com/macros/s/AKfycbw0Z1uYp4P8zfy5nB8pu4S3i8liqaxMO-nD8he7bfIjCDQOcSga6oWsyHtnByuFsXum/exec";
+
+  // Fermer le menu mobile après un clic sur un lien
+  document.querySelectorAll('#navLinks a').forEach(function(a){
+    a.addEventListener('click', function(){
+      var n = document.getElementById('navLinks');
+      var b = document.querySelector('.burger');
+      n.classList.remove('open');
+      if (b){ b.setAttribute('aria-expanded','false'); b.textContent='☰'; }
+    });
+  });
+
+  const form = document.getElementById('contactForm');
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const note = form.querySelector('.form-note');
+    const btn = form.querySelector('button[type=submit]');
+    const data = new FormData(form);
+
+    if (!SHEET_ENDPOINT.startsWith('https://script.google.com')) {
+      note.style.color = '#c0392b';
+      note.textContent = "Mode démo : connectez votre Google Sheet (voir instructions).";
+      return;
+    }
+
+    btn.disabled = true;
+    note.style.color = '#5E7488';
+    note.textContent = "Envoi en cours…";
+    try {
+      await fetch(SHEET_ENDPOINT, { method:'POST', body:data, mode:'no-cors' });
+      form.reset();
+      note.style.color = '#0F7D5E';
+      note.textContent = "Merci, votre demande a bien été envoyée. Nous vous recontactons sous 48 h.";
+    } catch (err) {
+      note.style.color = '#c0392b';
+      note.textContent = "Une erreur est survenue. Réessayez ou écrivez-nous directement.";
+    } finally {
+      btn.disabled = false;
+    }
+  });
+</script>
+
+</body>
+</html>

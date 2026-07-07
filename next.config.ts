@@ -22,6 +22,13 @@ const nextConfig: NextConfig = {
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
+  // La page d'accueil publique = la vitrine statique AO Partenaires (public/home.html).
+  // Le CRM reste sur /connexion, /app, /admin.
+  async rewrites() {
+    return {
+      beforeFiles: [{ source: "/", destination: "/home.html" }],
+    };
+  },
 };
 
 export default nextConfig;
