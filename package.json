@@ -5,7 +5,8 @@
   "description": "BTPilot — Plateforme SaaS de réponse aux appels d'offres publics pour les entreprises du BTP",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "prisma generate && next build",
+    "vercel-build": "prisma generate && node scripts/migrate-on-deploy.mjs && next build",
     "postinstall": "prisma generate",
     "start": "next start",
     "lint": "next lint",

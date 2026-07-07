@@ -1,5 +1,6 @@
 import "server-only";
 import { LocalDiskStorage } from "./local-disk";
+import { SupabaseStorage } from "./supabase";
 
 /**
  * Abstraction de stockage de fichiers privés.
@@ -20,8 +21,19 @@ let storage: StorageAdapter | null = null;
 
 export function getStorage(): StorageAdapter {
   if (!storage) {
-    // Point d'extension : if (process.env.STORAGE_PROVIDER === "supabase") ...
-    storage = new LocalDiskStorage();
+    // Supabase Storage en production serverless/VPS ; disque local sinon.
+    // Sur Vercel sans configuration Supabase, on refuse explicitement plutôt
+    // que de crasher sur un système de fichiers en lecture seule.
+    if (process.env.STORAGE_PROVIDER === "supabase") {
+      storage = new SupabaseStorage();
+    } else if (process.env.VERCEL) {
+      throw new Error(
+        "Stockage non configuré pour le serverless : définissez STORAGE_PROVIDER=supabase " +
+          "avec SUPABASE_URL / SUPABASE_SERVICE_ROLE_KEY / SUPABASE_BUCKET."
+      );
+    } else {
+      storage = new LocalDiskStorage();
+    }
   }
   return storage;
 }

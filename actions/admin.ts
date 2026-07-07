@@ -75,6 +75,8 @@ export async function startImpersonation(companyId: string): Promise<never> {
   (await cookies()).set(VIEW_AS_COOKIE, companyId, {
     httpOnly: true,
     sameSite: "lax",
+    // secure dès que l'app est servie en HTTPS (Vercel/VPS) — pas en local http.
+    secure: !!process.env.VERCEL || (process.env.APP_URL ?? "").startsWith("https"),
     path: "/",
   });
   redirect("/app");

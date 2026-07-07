@@ -14,9 +14,20 @@ const AUTH_PAGES = [
   "/invitation",
 ];
 
+// Vitrine publique (public/home.html servie sur « / » via le rewrite
+// de next.config.ts) : accessible sans connexion.
+// NB : renvoyer explicitement NextResponse.next() — un retour vide laisse
+// le wrapper auth() de next-auth appliquer sa redirection par défaut.
+const PUBLIC_PAGES = ["/", "/home.html", "/compte-desactive"];
+
 export default auth((req) => {
   const { nextUrl } = req;
   const user = req.auth?.user;
+
+  if (PUBLIC_PAGES.includes(nextUrl.pathname)) {
+    return NextResponse.next();
+  }
+
   const isAuthPage = AUTH_PAGES.some((p) => nextUrl.pathname.startsWith(p));
 
   if (isAuthPage) {
@@ -24,7 +35,7 @@ export default auth((req) => {
       const home = user.role === "SUPER_ADMIN" ? "/admin" : "/app";
       return NextResponse.redirect(new URL(home, nextUrl));
     }
-    return;
+    return NextResponse.next();
   }
 
   if (!user) {

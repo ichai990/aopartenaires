@@ -111,6 +111,25 @@ Les transitions sont contrôlées par rôle dans `lib/workflow/tender-status.ts`
 Le passage à « Déposé » exige une validation dirigeant dont le hash correspond
 à la version courante du dossier.
 
+## Déployer sur Vercel
+
+Le build Vercel utilise le script `vercel-build` (migrations Prisma incluses).
+**Sans ces variables, le déploiement ne peut pas fonctionner :**
+
+| Variable | Valeur |
+|---|---|
+| `DATABASE_URL` | URL PostgreSQL accessible depuis Vercel (Supabase cloud ou self-hosted). Le PostgreSQL embarqué ne sert qu'en local. |
+| `AUTH_SECRET` | `openssl rand -base64 32` |
+| `APP_URL` | `https://votre-domaine.vercel.app` |
+| `STORAGE_PROVIDER` | `supabase` (le disque local n'existe pas en serverless) |
+| `SUPABASE_URL` / `SUPABASE_SERVICE_ROLE_KEY` / `SUPABASE_BUCKET` | Projet Supabase + bucket **privé** (créez `btpilot` dans Storage) |
+| `AI_PROVIDER`, `ANTHROPIC_API_KEY`… | Optionnel (mock par défaut) |
+| `LEADS_FEED_URL` / `LEADS_FEED_TOKEN` | Optionnel (page Leads du site) |
+
+Puis relancez le déploiement. Après le premier déploiement, créez le compte
+super admin : `npx tsx` local pointé sur la `DATABASE_URL` de production, ou
+`npm run db:seed` (comptes de démo — à désactiver ensuite).
+
 ## Passer en production (VPS + Supabase self-hosted)
 
 1. Pointez `DATABASE_URL` vers le PostgreSQL de votre Supabase self-hosted,
